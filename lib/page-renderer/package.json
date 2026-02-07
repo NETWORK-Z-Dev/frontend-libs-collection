@@ -1,0 +1,15 @@
+{
+  "name": "@hackthedev/page-renderer",
+  "version": "1.0.1",
+  "description": "",
+  "keywords": [
+    "frontend"
+  ],
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "PageRenderer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -30,3 +30,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 ```
 
+It has many more functions that will be documented eventually.

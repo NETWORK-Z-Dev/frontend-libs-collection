@@ -1,7 +1,7 @@
 {
   "name": "@hackthedev/icons",
   "version": "1.0.9",
-  "description": "",
+  "description": "Small SVG icon library. You call a function » you get a html svg string back- simple as that.",
   "keywords": [
     "frontend"
   ],

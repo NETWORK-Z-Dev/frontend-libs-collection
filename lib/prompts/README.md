@@ -10,8 +10,8 @@ This library was made to offer an advanced alternative to the native alert, prom
 let customPrompts = new Prompt();
 
 customPrompts.showPrompt(
-            "Ban User",
-            `
+            "Ban User", // prompt title
+            ` 
             <div class="prompt-form-group">
                 <label class="prompt-label" for="banReason">Reason (optional)</label>
                 <input class="prompt-input" id="tt_banUserDialog_banReason" type="text" name="banReason">
@@ -32,7 +32,7 @@ customPrompts.showPrompt(
                 </select>
             </div>
     
-            `,
+            `, // html to display
             (values) => { // on submit callback
                 console.log('Submitted Values:', values);
                 // values are based on the 'name' property of elements
@@ -41,30 +41,21 @@ customPrompts.showPrompt(
                 let banDuration = `${Math.floor(values.banDurationNumber)} ${values.banDurationType}`
 
                 socket.emit("banUser", {
-                    id: UserManager.getID(),
-                    token: UserManager.getToken(),
-                    target: id,
                     reason: banReason,
                     duration: banDuration
                 }, function (response) {
-                    showSystemMessage({
-                        title: response.msg,
-                        text: "",
-                        icon: response.type,
-                        img: null,
-                        type: response.type,
-                        duration: 1000
-                    });
+                    // do whatever...
                 });
             },
-            ["Ban", "error"],
-            false,
-            250,
-            () => {
-                tooltipSystem.clearTooltipLocalStorage("tt_banUserDialog_");
+            ["Ban", "error"], // custom submit text and color
+            false, // multi select if relevant
+            250, // optional minimum width
+            () => { // help action callback. will show help icon
                 banUserTooltip();
             },
-            afterSubmitAction
+            afterSubmitAction, // what to do after submit and after the submit callback
+    		false, // optional, disable submit button or not (e.g. notices, banned messages, ...)
+    		false // disables the close icon,
         );
 
 
@@ -78,7 +69,14 @@ customPrompts.showConfirm("Remove this member from the chat?",
             if (selected !== "yes") return;
             let res = await removeDmRoomParticipant(roomId, memberId);
             if (res?.error) console.error("remove participant failed:", res.error);
-        }
+        },
+        afterSubmitAction // after submit and after callback callback 
     )
+
+// example of what this would look like
+let afterSubmitAction = async() => {
+    // confirm = { canceled: false, selectedOption: selected }
+    // prompt = { canceled: false, values }
+}
 ```
 

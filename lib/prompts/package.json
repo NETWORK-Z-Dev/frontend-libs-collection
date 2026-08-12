@@ -1,7 +1,7 @@
 {
   "name": "@hackthedev/prompts",
   "version": "1.0.1",
-  "description": "",
+  "description": "Helpful prompts library that renders HTML and has a callback system as well as confirm dialog.",
   "keywords": [
     "frontend"
   ],

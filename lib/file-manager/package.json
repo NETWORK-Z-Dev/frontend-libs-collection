@@ -1,7 +1,7 @@
 {
   "name": "@hackthedev/file-manager",
   "version": "1.0.2",
-  "description": "Frontend library with a few helper functions and dSyncFiles integration",
+  "description": "Frontend library with a few file related helper functions and dSyncFiles integration",
   "license": "ISC",
   "author": "",
   "keywords": [

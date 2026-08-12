@@ -1,7 +1,7 @@
 {
   "name": "@hackthedev/mobile-ui",
   "version": "1.0.1",
-  "description": "",
+  "description": "Helpful library to manage mobile specific functions like swipes and mobile detection.",
   "keywords": [
     "frontend"
   ],

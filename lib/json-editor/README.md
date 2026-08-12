@@ -2,78 +2,39 @@
 
 This library is used to easily convert a json key into an HTML element based on the key type. The overall goal is to easily create settings pages and have a quick and easy way to edit the value of the json key all automatically.
 
-Example usage:
+**Example usage:**
 
 ```js
-domContainerElement.insertAdjacentElement("beforeend",
-        JsonEditor.getSettingElement(
-            config.serverinfo.name, // » "Your example title!"
-            "Server Name", // » Option name
-            "", // » Option description
-            v => { // » onchange callback. v = new value.
-                response.serverinfo.name = v;
-                if (checkJsonChanges(response, originalnfo)) {
-                    showSaveSettings(async () => {
-                        saveServerInfoSettings(response);
-                    })
-                }
-            }
+getTabContentPage().insertAdjacentElement(
+            "beforeend",
+            JsonEditor.getSettingElement( // generates the setting HTML element
+                nickname, // input value, like a string 
+                "Display Name", // the display setting name
+                "How others will see you", // the setting description, optional
+                
+                async (value) => { // onchange callback with new value passed
+                    // example check if settings changed
+                    if (originalUserData.nickname !== value) {
+                        
+                        // if it changed you can show a save button.
+                        // this button needs an id to track changes.
+                        JsonEditor.showSaveButton("nickname", () => {
+                            // this callback fires when the save button is clicked.
+                            originalUserData.nickname = value
+                            saveAccountChanges({
+                                name: value
+                            });
+                        });
+                    } else {
+                        JsonEditor.hideSaveButton();
+                    }
+                }, 
+                // optional settings, like regex matching.
+                {
+                    regexMatcher: /^[a-zA-Z0-9_. -]{1,30}$/,
+                    canBeNull: true,
+                })
         )
-    );
-
-// some example helpers
-async function showSaveSettings(callback, text = "Unsaved Settings!") {
-    if(!callback) throw new Error("No callback provided");
-
-    let settingsContainer = document.querySelector(".settings-save-container");
-    if(!settingsContainer){
-        settingsContainer = document.createElement("div");
-        settingsContainer.classList.add("settings-save-container");
-        document.body.appendChild(settingsContainer);
-    }
-
-    settingsContainer.innerHTML = `
-        <div class="settings-save-container-inner">
-            <div class="settings-save-container-inner-text">
-                ${text} 
-            </div>
-        </div>
-    `;
-
-    settingsContainer.classList.add("shown");
-    settingsContainer.onclick = async () => {
-        try{
-            await callback();
-        }
-        catch(e){
-            console.error(e);
-        }
-        closeSettingsPrompt()
-    };
-}
-
-function checkJsonChanges(jsonObject, stringifiedOriginal){
-    if(!jsonObject) throw new Error("No JSON Object supplied in checkChanges");
-
-    if(JSON.stringify(jsonObject) !== stringifiedOriginal){
-        return true;
-    }
-    else{
-        closeSettingsPrompt();
-        return false;
-    }
-}
-
-
-function closeSettingsPrompt(){
-    let settingsContainer = document.querySelector(".settings-save-container");
-    if(!settingsContainer) return;
-
-    settingsContainer.classList.remove("shown");
-    setTimeout(() => {
-        settingsContainer.remove();
-    }, 200);
-}
 ```
 
 

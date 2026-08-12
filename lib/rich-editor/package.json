@@ -1,7 +1,7 @@
 {
   "name": "@hackthedev/rich-editor",
   "version": "1.0.2",
-  "description": "",
+  "description": "A powerful rich editor toolbox using a customized quill version",
   "keywords": [
     "frontend"
   ],

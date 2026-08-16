@@ -1,5 +1,5 @@
 {
-    "name": "autocomplete",
+    "name": "@hackthedev/autocomplete",
     "description": "Simple frontend library for mention autocomplete and alike",
     "version": "1.0.0",
     "license": "NONE"
